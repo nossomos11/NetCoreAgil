@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProAgil.API.Data;
 using ProAgil.API.Model;
 
@@ -25,7 +26,7 @@ namespace ProAgil.API.Controllers
         public async Task<ActionResult<IEnumerable<Evento>>> Get()
         {
             try{
-                var eventos = await DataContext.Eventos.ToAsyncEnumerable().ToList();
+                var eventos = await DataContext.Eventos.ToListAsync();
 
                 return Ok(eventos);
             }
@@ -40,7 +41,7 @@ namespace ProAgil.API.Controllers
         public async Task<ActionResult<Evento>> Get(int id)
         {
             try{
-                var evento = await DataContext.Eventos.ToAsyncEnumerable().FirstOrDefault(x => x.EventoID == id);
+                var evento = await DataContext.Eventos.FirstOrDefaultAsync(x => x.EventoID == id);
                 return Ok(evento);
             }
             catch(Exception)
