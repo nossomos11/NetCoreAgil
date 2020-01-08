@@ -2,4 +2,12 @@
   eventos works!
 </p>
 
-{{eventos[0].Tema}}
+<div *ngFor="let item of eventos">
+  Tema: {{item.Tema}}
+  <br />
+  Local: {{item.Local}}
+  <hr />
+</div>
+
+
+
