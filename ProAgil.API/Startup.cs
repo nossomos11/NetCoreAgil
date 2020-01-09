@@ -14,6 +14,8 @@ using ProAgil.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace ProAgil.API
 {
@@ -31,6 +33,7 @@ namespace ProAgil.API
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
+            //services.AddDirectoryBrowser();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
         }
@@ -54,6 +57,24 @@ namespace ProAgil.API
             //app.UseHttpsRedirection();
             // Enable Cors
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "img")),
+                RequestPath = "/img"
+            });
+
+            /*
+            Permite navegar numa pasta de arquivos físicos através de uma determinada rota
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "img")),
+                RequestPath = "/img"
+            });
+            */
+
             app.UseMvc();
         }
     }
