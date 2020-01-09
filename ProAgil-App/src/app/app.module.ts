@@ -18,7 +18,8 @@ import { NavComponent } from "./nav/nav.component";
       BrowserModule,
       FormsModule,
       HttpModule,
-      HttpClientModule
+      HttpClientModule,
+      FormsModule
    ],
    providers: [],
    bootstrap: [

@@ -9,6 +9,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EventosComponent implements OnInit {
 
+  _filtroLista: string = '';
+
+  public get filtroLista() : string {
+    return this._filtroLista;
+  }
+  public set filtroLista(value : string) {
+    this._filtroLista = value;
+    this.eventosFiltrados = this.filtroLista.length > 0 ? this.filtrarLista(this._filtroLista) : this.eventos;
+  }
+
+  eventosFiltrados: any = [];
   eventos: any = [];
   imagemLargura: number = 20;
   mostrarImagem: boolean = true;
@@ -23,6 +34,7 @@ export class EventosComponent implements OnInit {
     this.http.get('http://localhost:5000/api/values/').subscribe(
       response => {
         this.eventos = response;
+        this.eventosFiltrados = this.eventos;
       }, error => {
         console.log(error);
       }
@@ -31,6 +43,14 @@ export class EventosComponent implements OnInit {
 
   exibirImagem(){
     this.mostrarImagem = ! this.mostrarImagem;
+  }
+
+  filtrarLista(filtrarPor: string): any {
+    filtrarPor = filtrarPor.toLowerCase();
+    console.log(filtrarPor);
+    return this.eventos.filter(
+      evento => evento.Tema.toLowerCase().indexOf(filtrarPor) !== -1
+    );
   }
 
 }
