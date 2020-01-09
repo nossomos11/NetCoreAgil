@@ -10,7 +10,8 @@ import { HttpClient } from '@angular/common/http';
 export class EventosComponent implements OnInit {
 
   eventos: any = [];
-  imagemLargura = 20;
+  imagemLargura: number = 20;
+  mostrarImagem: boolean = true;
 
   constructor(private http: HttpClient) { }
 
@@ -26,6 +27,10 @@ export class EventosComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  exibirImagem(){
+    this.mostrarImagem = ! this.mostrarImagem;
   }
 
 }
