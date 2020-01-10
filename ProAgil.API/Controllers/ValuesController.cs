@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProAgil.API.Data;
-using ProAgil.API.Model;
+using ProAgil.Domain;
+using ProAgil.Repository;
 
 namespace ProAgil.API.Controllers
 {
@@ -14,9 +14,10 @@ namespace ProAgil.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public readonly DataContext DataContext;
+        
+        public readonly ProAgilDataContext DataContext;
 
-        public ValuesController(DataContext dataContext)
+        public ValuesController(ProAgilDataContext dataContext)
         {
             DataContext = dataContext;
         }
@@ -41,7 +42,7 @@ namespace ProAgil.API.Controllers
         public async Task<ActionResult<Evento>> Get(int id)
         {
             try{
-                var evento = await DataContext.Eventos.FirstOrDefaultAsync(x => x.EventoID == id);
+                var evento = await DataContext.Eventos.FirstOrDefaultAsync(x => x.ID == id);
                 return Ok(evento);
             }
             catch(Exception)
@@ -69,13 +70,13 @@ namespace ProAgil.API.Controllers
         public void Put(int id, [FromBody] Evento value)
         {
             try{
-                var evento = DataContext.Eventos.FirstOrDefault(x => x.EventoID == id);
+                var evento = DataContext.Eventos.FirstOrDefault(x => x.ID == id);
                 if(evento != null){
                     evento.Tema = value.Tema;
                     evento.DataEvento = value.DataEvento;
                     evento.QtdPessoas = value.QtdPessoas;
                     evento.Local = value.Local;
-                    evento.Lote = value.Lote;
+                    //evento.Lote = value.Lote;
                     DataContext.SaveChanges();
                 }
             }
@@ -90,7 +91,7 @@ namespace ProAgil.API.Controllers
         public void Delete(int id)
         {
             try{
-                var evento = DataContext.Eventos.FirstOrDefault(x => x.EventoID == id);
+                var evento = DataContext.Eventos.FirstOrDefault(x => x.ID == id);
                 if(evento != null){
                     DataContext.Eventos.Remove(evento);
                     DataContext.SaveChanges();
@@ -101,5 +102,6 @@ namespace ProAgil.API.Controllers
 
             }            
         }
+        
     }
 }
