@@ -9,7 +9,7 @@ using ProAgil.Repository;
 namespace ProAgil.Repository.Migrations
 {
     [DbContext(typeof(ProAgilDataContext))]
-    [Migration("20200110160748_init")]
+    [Migration("20200110171247_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,6 @@ namespace ProAgil.Repository.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<int?>("EventoID");
-
                     b.Property<string>("ImagemURL");
 
                     b.Property<string>("Local");
@@ -40,8 +38,6 @@ namespace ProAgil.Repository.Migrations
                     b.Property<string>("Tema");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("EventoID");
 
                     b.ToTable("Eventos");
                 });
@@ -125,17 +121,10 @@ namespace ProAgil.Repository.Migrations
                     b.ToTable("RedesSociais");
                 });
 
-            modelBuilder.Entity("ProAgil.Domain.Evento", b =>
-                {
-                    b.HasOne("ProAgil.Domain.Evento")
-                        .WithMany("Eventos")
-                        .HasForeignKey("EventoID");
-                });
-
             modelBuilder.Entity("ProAgil.Domain.Lote", b =>
                 {
                     b.HasOne("ProAgil.Domain.Evento", "Evento")
-                        .WithMany()
+                        .WithMany("Lotes")
                         .HasForeignKey("EventoID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -3,7 +3,7 @@ using ProAgil.Domain;
 
 namespace ProAgil.Repository
 {
-    public class ProAgilDataContext : DbContcd..ext
+    public class ProAgilDataContext : DbContext
     {
         public ProAgilDataContext(DbContextOptions options) : base(options)
         {

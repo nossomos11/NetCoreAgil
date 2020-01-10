@@ -19,18 +19,11 @@ namespace ProAgil.Repository.Migrations
                     QtdPessoas = table.Column<int>(nullable: false),
                     ImagemURL = table.Column<string>(nullable: true),
                     Telefone = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    EventoID = table.Column<int>(nullable: true)
+                    Email = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Eventos", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Eventos_Eventos_EventoID",
-                        column: x => x.EventoID,
-                        principalTable: "Eventos",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -125,11 +118,6 @@ namespace ProAgil.Repository.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Eventos_EventoID",
-                table: "Eventos",
-                column: "EventoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lotes_EventoID",
