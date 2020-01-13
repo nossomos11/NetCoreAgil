@@ -95,19 +95,12 @@ namespace ProAgil.API.Controllers
                 var oldPalestrante = this.Repository.Get(false, palestranteID);
                 if(oldPalestrante.Result == null){ return NotFound(); }
 
+                palestrante.ID = palestranteID;
 
-                oldPalestrante.Result.Nome = palestrante.Nome;
-                oldPalestrante.Result.Email = palestrante.Email;
-                oldPalestrante.Result.ImagemURL = palestrante.ImagemURL;
-                oldPalestrante.Result.Miniurriculo = palestrante.Miniurriculo;
-                oldPalestrante.Result.PalestrantesEventos = palestrante.PalestrantesEventos;
-                oldPalestrante.Result.RedeSociais = palestrante.RedeSociais;
-                oldPalestrante.Result.Telefone = palestrante.Telefone;
-
-                this.Repository.Update(oldPalestrante.Result);
+                this.Repository.Update(palestrante);
 
                 if(await this.Repository.SaveChangesAsync()){
-                    return Created($"/api/evento/{oldPalestrante.Result.ID}", oldPalestrante.Result);
+                    return Created($"/api/evento/{palestrante.ID}", palestrante);
                 }
 
             }

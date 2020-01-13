@@ -95,22 +95,12 @@ namespace ProAgil.API.Controllers
                 var oldEvento = this.Repository.Get(false, eventoID);
                 if(oldEvento.Result == null){ return NotFound(); }
 
+                evento.ID = eventoID;
 
-                oldEvento.Result.DataEvento = evento.DataEvento;
-                oldEvento.Result.Email = evento.Email;
-                oldEvento.Result.ImagemURL = evento.ImagemURL;
-                oldEvento.Result.Local = evento.Local;
-                oldEvento.Result.Lotes = evento.Lotes;
-                oldEvento.Result.PalestrantesEventos = evento.PalestrantesEventos;
-                oldEvento.Result.QtdPessoas = evento.QtdPessoas;
-                oldEvento.Result.RedeSociais = evento.RedeSociais;
-                oldEvento.Result.Telefone = evento.Telefone;
-                oldEvento.Result.Tema = evento.Tema;
-
-                this.Repository.Update(oldEvento.Result);
+                this.Repository.Update(evento);
 
                 if(await this.Repository.SaveChangesAsync()){
-                    return Created($"/api/evento/{oldEvento.Result.ID}", oldEvento.Result);
+                    return Created($"/api/evento/{evento.ID}", evento);
                 }
 
             }
