@@ -32,6 +32,8 @@ namespace ProAgil.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProAgilDataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ProAgilEventoRepository, ProAgilEventoRepository>();
+            services.AddScoped<ProAgilPalestranteRepository, ProAgilPalestranteRepository>();
             services.AddCors();
             //services.AddDirectoryBrowser();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());

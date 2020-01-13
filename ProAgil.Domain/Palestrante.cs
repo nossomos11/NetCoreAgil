@@ -12,6 +12,7 @@ namespace ProAgil.Domain
         public string Telefone { get; set; }
         public string Email { get; set; }
         public List<RedeSocial> RedeSociais { get; set; }
+        public List<PalestranteEvento> PalestrantesEventos { get; set; }       
 
     }
 }
