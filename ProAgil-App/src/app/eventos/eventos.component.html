@@ -24,7 +24,7 @@
     <td><img *ngIf="mostrarImagem" src="http://localhost:5000/img/{{item.ImagemURL}}" [style.width.px]="imagemLargura" class="ml-lg-3" /></td>
     <td>{{item.Tema}}</td>
     <td>{{item.Local}}</td>
-    <td>{{item.DataEvento}}</td>
+    <td>{{item.DataEvento | DateTimeFormatPipe}}</td>
     <td>{{item.QtdPessoas}}</td>
     <td>{{item.Lotes.length > 0 ? item.Lotes[item.Lotes.length - 1].Nome : 'Não Informado'}}</td>
     <td>
