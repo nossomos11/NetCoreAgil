@@ -7,6 +7,7 @@ import { HttpClientModule  } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { NavComponent } from "./nav/nav.component";
+import { EventoService } from './services/evento.service';
 
 @NgModule({
    declarations: [
@@ -21,7 +22,9 @@ import { NavComponent } from "./nav/nav.component";
       HttpClientModule,
       FormsModule
    ],
-   providers: [],
+   providers: [
+     // EventoService
+   ],
    bootstrap: [
       AppComponent
    ]

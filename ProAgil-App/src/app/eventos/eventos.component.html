@@ -19,13 +19,13 @@
   </thead>
   <tbody *ngIf="eventosFiltrados && eventosFiltrados.length > 0">
     <tr *ngFor="let item of eventosFiltrados">
-    <td>{{item.EventoID}}</td>
+    <td>{{item.ID}}</td>
     <td><img *ngIf="mostrarImagem" src="http://localhost:5000/img/{{item.ImagemURL}}" [style.width.px]="imagemLargura" class="ml-lg-4" /></td>
     <td>{{item.Tema}}</td>
     <td>{{item.Local}}</td>
     <td>{{item.DataEvento}}</td>
     <td>{{item.QtdPessoas}}</td>
-    <td>{{item.Lote}}</td>
+    <td>{{item.Lotes.length > 0 ? item.Lotes[item.Lotes.length - 1].Nome : ''}}</td>
     <td>
       <button class="btn btn-success"></button>
       <button class="btn btn-danger"></button>

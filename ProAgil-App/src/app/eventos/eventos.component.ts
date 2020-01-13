@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { EventoService } from 'app/services/evento.service';
 
 
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
-  styleUrls: ['./eventos.component.css']
+  styleUrls: ['./eventos.component.css'],
+  providers: [EventoService]
 })
 export class EventosComponent implements OnInit {
 
@@ -24,14 +26,14 @@ export class EventosComponent implements OnInit {
   imagemLargura: number = 20;
   mostrarImagem: boolean = true;
 
-  constructor(private http: HttpClient) { }
+  constructor(private eventoService: EventoService) { }
 
   ngOnInit() {
     this.getEventos();
   }
 
   getEventos(){
-    this.http.get('http://localhost:5000/api/values/').subscribe(
+    this.eventoService.getEventos().subscribe(
       response => {
         this.eventos = response;
         this.eventosFiltrados = this.eventos;
