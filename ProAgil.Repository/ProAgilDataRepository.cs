@@ -10,6 +10,7 @@ namespace ProAgil.Repository
         public ProAgilDataRepository(ProAgilDataContext dataContext)
         {
             DataContext = dataContext;
+            DataContext.ChangeTracker.QueryTrackingBehavior = Microsoft.EntityFrameworkCore.QueryTrackingBehavior.NoTracking;
         }
 
         public void Add<T>(T entity) where T : class

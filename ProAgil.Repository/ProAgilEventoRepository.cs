@@ -32,7 +32,7 @@ namespace ProAgil.Repository
                 }
 
                 if(eventoId > 0){
-                    query = query.Where( e => e.ID == eventoId).AsNoTracking();
+                    query = query.Where( e => e.ID == eventoId);
                 }
 
                 if(!String.IsNullOrEmpty(tema)){
