@@ -1,9 +1,9 @@
 <div class="form-inline" action="">
+  <h2><label class="mr-2">Filtrar:</label>{{filtroLista}}</h2>
   <div class="form-group-mb-2">
     <input type="text" class="form-control-mr-2" placeholder="Buscar" [(ngModel)]="filtroLista" />
   </div>
 </div>
-<h2><label class="mr-2">Filtrar:</label>{{filtroLista}}</h2>
 
 <table class="table table-striped">
   <thead class="thead-dark">
@@ -26,7 +26,7 @@
     <td>{{item.Local}}</td>
     <td>{{item.DataEvento | DateTimeFormatPipe}}</td>
     <td>{{item.QtdPessoas}}</td>
-    <td>{{item.Lotes.length > 0 ? item.Lotes[item.Lotes.length - 1].Nome : 'Não Informado'}}</td>
+    <td>{{item.Lotes.length > 0 ? ( item.Lotes[item.Lotes.length - 1].Nome | uppercase): 'Não Informado'}}</td>
     <td>
       <button class="btn btn-success"></button>
       <button class="btn btn-danger"></button>
