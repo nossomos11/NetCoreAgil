@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { EventoService } from 'app/services/evento.service';
-import { Evento } from 'app/models/Evento';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { EventoService } from '../services/evento.service';
+import { Evento } from '../models/Evento';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-eventos',
@@ -11,8 +11,18 @@ import { Evento } from 'app/models/Evento';
 })
 
 export class EventosComponent implements OnInit {
+  eventosFiltrados: Evento[];
+  eventos: Evento[];
+  imagemLargura: number = 20;
+  mostrarImagem: boolean = true;
+  modalRef: BsModalRef;
 
   _filtroLista: string = '';
+
+  constructor(
+    private eventoService: EventoService,
+    private modalService: BsModalService ) 
+    { }
 
   public get filtroLista() : string {
     return this._filtroLista;
@@ -21,14 +31,11 @@ export class EventosComponent implements OnInit {
     this._filtroLista = value;
     this.eventosFiltrados = this.filtroLista.length > 0 ? this.filtrarLista(this._filtroLista) : this.eventos;
   }
-
-  eventosFiltrados: Evento[];
-  eventos: Evento[];
-  imagemLargura: number = 20;
-  mostrarImagem: boolean = true;
-
-  constructor(private eventoService: EventoService) { }
-
+  
+  openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template);
+  }
+ 
   ngOnInit() {
     this.getEventos();
   }
