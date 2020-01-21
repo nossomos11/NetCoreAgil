@@ -1,8 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventoService } from '../services/evento.service';
 import { Evento } from '../models/Evento';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { BsModalRef, BsModalService, BsLocaleService, ptBrLocale, defineLocale } from 'ngx-bootstrap';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+defineLocale('pt-br', ptBrLocale);
 
 @Component({
   selector: 'app-eventos',
@@ -16,7 +17,6 @@ export class EventosComponent implements OnInit {
   eventos: Evento[];
   imagemLargura: number = 20;
   mostrarImagem: boolean = true;
-  modalRef: BsModalRef;
   registerForm: FormGroup;
   mostrarStatusFormBuilder: boolean = false;
   _filtroLista: string = '';
@@ -24,8 +24,11 @@ export class EventosComponent implements OnInit {
   constructor(
     private eventoService: EventoService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder ) 
-    { }
+    private formBuilder: FormBuilder,
+    private localeService: BsLocaleService ) 
+    { 
+      this.localeService.use('pt-br');
+    }
 
   public get filtroLista() : string {
     return this._filtroLista;
@@ -41,13 +44,12 @@ export class EventosComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>){
-    this.modalRef = this.modalService.show(template);
+    template.show();
   }
  
   getEventos(){
     this.eventoService.getEventos().subscribe(
       (retornoEventos: Evento[]) => {
-        debugger
         this.eventos = retornoEventos;
         this.eventosFiltrados = this.eventos;
         console.log(retornoEventos);
@@ -62,7 +64,6 @@ export class EventosComponent implements OnInit {
   }
 
   filtrarLista(filtrarPor: string): Evento[] {
-    debugger;
     filtrarPor = filtrarPor != null ? filtrarPor.toLowerCase() : '';
     console.log(filtrarPor);
     return this.eventos.filter(
