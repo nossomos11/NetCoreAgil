@@ -18,7 +18,7 @@ export class EventosComponent implements OnInit {
   mostrarImagem: boolean = true;
   modalRef: BsModalRef;
   registerForm: FormGroup;
-
+  mostrarStatusFormBuilder: boolean = false;
   _filtroLista: string = '';
 
   constructor(

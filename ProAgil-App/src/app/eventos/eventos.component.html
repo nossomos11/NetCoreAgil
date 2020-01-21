@@ -155,5 +155,10 @@
 <button class="btn btn-primary" (click)="salvarAlteracao()">
   Salvar Alterações
 </button>
-<br>
-<br>
+<br />
+<br />
+
+<div *ngIf="mostrarStatusFormBuilder" >
+Form Values: {{registerForm.value | json }} <br />
+Form Status: {{registerForm.status | json }}
+</div>
