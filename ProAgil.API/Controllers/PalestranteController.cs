@@ -30,9 +30,10 @@ namespace ProAgil.API.Controllers
 
                 return Ok(palestrantes);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a busca da lista de palestrantes.");
+                Console.Write(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a busca da lista de palestrantes. {ex.Message}");
             }
         }        
 
@@ -45,9 +46,10 @@ namespace ProAgil.API.Controllers
 
                 return Ok(palestrante);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a busca do palestrante.");
+                Console.Write(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a busca do palestrante. {ex.Message}");
             }
         } 
 
@@ -59,9 +61,10 @@ namespace ProAgil.API.Controllers
                 var palestrantes = await this.Repository.GetAllAsync(true, nome);
                 return Ok(palestrantes);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a busca da lista de palestrante.");
+                Console.Write(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a busca da lista de palestrante. {ex.Message}");
             }
         }
 
@@ -77,9 +80,10 @@ namespace ProAgil.API.Controllers
                 }
 
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a criação do palestrante.");
+                Console.Write(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a criação do palestrante. {ex.Message}");
             }
 
             return BadRequest();
@@ -104,9 +108,10 @@ namespace ProAgil.API.Controllers
                 }
 
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a atualização do palestrante.");
+                Console.Write(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a atualização do palestrante. {ex.Message}");
             }
 
             return BadRequest();
@@ -129,10 +134,10 @@ namespace ProAgil.API.Controllers
                 }
 
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                Console.Write(e.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a exclusão do palestrante.");
+                Console.Write(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a exclusão do palestrante. {ex.Message}");
             }
 
             return BadRequest();

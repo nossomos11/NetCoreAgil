@@ -2,141 +2,130 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProAgil.API.Dtos;
 using ProAgil.Domain;
 using ProAgil.Repository;
 
-namespace ProAgil.API.Controllers
-{
-    [Route("api/[controller]")]
+namespace ProAgil.API.Controllers {
+    [Route ("api/[controller]")]
     [ApiController]
-    public class EventoController : ControllerBase
-    {
+    public class EventoController : ControllerBase {
         public ProAgilEventoRepository Repository { get; }
+        public IMapper Mapper { get; }
 
-        public EventoController(ProAgilEventoRepository repository)
-        {
-            Repository = repository;
+        public EventoController (ProAgilEventoRepository repository, IMapper mapper) {
+            this.Mapper = mapper;
+            this.Repository = repository;
         }
 
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Evento>>> Get()
-        {
-            try{
-                var eventos = await this.Repository.GetAllAsync(true);
+        public async Task<ActionResult<IEnumerable<Evento>>> Get () {
+            try {
+                var eventos = await this.Repository.GetAllAsync (true);
+                var results = this.Mapper.Map<IEnumerable<EventoDTO>>(eventos);
 
-                return Ok(eventos);
+                return Ok (results);
+            } catch (Exception ex) {
+                return StatusCode (StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a busca da lista de eventos. {ex.Message}");
             }
-            catch(Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a busca da lista de eventos.");
-            }
-        }        
+        }
 
         // GET api/values
-        [HttpGet("{eventoID}")]
-        public async Task<ActionResult<Evento>> Get(int eventoID)
-        {
-            try{
-                var evento = await this.Repository.Get(true, eventoID);
+        [HttpGet ("{eventoID}")]
+        public async Task<ActionResult<Evento>> Get (int eventoID) {
+            try {
+                var evento = await this.Repository.Get (true, eventoID);
+                var result = this.Mapper.Map<EventoDTO>(evento);
 
-                return Ok(evento);
+                return Ok (result);
+            } catch (Exception ex) {
+                return StatusCode (StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a busca do evento. {ex.Message}");
             }
-            catch(Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a busca do evento.");
-            }
-        } 
+        }
 
         // GET api/values
-        [HttpGet("getByTema/{tema}")]
-        public async Task<ActionResult<IEnumerable<Evento>>> Get(string tema)
-        {
-            try{
-                var eventos = await this.Repository.GetAllAsync(true,tema);
-                return Ok(eventos);
-            }
-            catch(Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a busca do evento.");
+        [HttpGet ("getByTema/{tema}")]
+        public async Task<ActionResult<IEnumerable<Evento>>> Get (string tema) {
+            try {
+                var eventos = await this.Repository.GetAllAsync (true, tema);
+                var results = this.Mapper.Map<IEnumerable<EventoDTO>>(eventos);
+                return Ok (results);
+            } catch (Exception ex) {
+                Console.Write(ex.ToString());
+                return StatusCode (StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a busca do evento. {ex.Message}");
             }
         }
 
         // GET api/values
         [HttpPost]
-        public async Task<ActionResult> Post(Evento evento)
-        {
-            try{
-                this.Repository.Add(evento);
+        public async Task<ActionResult> Post (EventoDTO eventoDTO) {
+            try {
 
-                if(await this.Repository.SaveChangesAsync()){
-                    return Created($"/api/evento/{evento.ID}", evento);
+                var evento = this.Mapper.Map<Evento>(eventoDTO);
+                this.Repository.Add (evento);
+
+                if (await this.Repository.SaveChangesAsync ()) {
+                    return Created ($"/api/evento/{evento.ID}", evento);
                 }
 
-            }
-            catch(Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a criação do evento.");
+            } catch (Exception ex) {
+                Console.Write(ex.ToString());
+                return StatusCode (StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a criação do evento. {ex.Message}");
             }
 
-            return BadRequest();
-        }         
-
+            return BadRequest ();
+        }
 
         // GET api/values
-        [HttpPut("{eventoID}")]
-        public async Task<ActionResult> Put(int eventoID, Evento evento)
-        {
-            try{
+        [HttpPut ("{eventoID}")]
+        public async Task<ActionResult> Put (int eventoID, Evento evento) {
+            try {
 
-                var oldEvento = this.Repository.Get(false, eventoID);
-                if(oldEvento.Result == null){ return NotFound(); }
+                var oldEvento = this.Repository.Get (false, eventoID);
+                if (oldEvento.Result == null) { return NotFound (); }
 
                 evento.ID = eventoID;
 
-                this.Repository.Update(evento);
+                this.Repository.Update (evento);
 
-                if(await this.Repository.SaveChangesAsync()){
-                    return Created($"/api/evento/{evento.ID}", evento);
+                if (await this.Repository.SaveChangesAsync ()) {
+                    return Created ($"/api/evento/{evento.ID}", evento);
                 }
 
-            }
-            catch(Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a atualização do evento.");
+            } catch (Exception ex) {
+                Console.Write(ex.ToString());
+                return StatusCode (StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a atualização do evento. {ex.Message}");
             }
 
-            return BadRequest();
-        } 
-
+            return BadRequest ();
+        }
 
         // GET api/values
-        [HttpDelete("{eventoID}")]
-        public async Task<ActionResult> Delete(int eventoID)
-        {
-            try{
+        [HttpDelete ("{eventoID}")]
+        public async Task<ActionResult> Delete (int eventoID) {
+            try {
 
-                var oldEvento = this.Repository.Get(false, eventoID);
-                if(oldEvento.Result == null){ return NotFound(); }
+                var oldEvento = this.Repository.Get (false, eventoID);
+                if (oldEvento.Result == null) { return NotFound (); }
 
-                this.Repository.Delete(oldEvento.Result);
+                this.Repository.Delete (oldEvento.Result);
 
-                if(await this.Repository.SaveChangesAsync()){
-                    return Ok();
+                if (await this.Repository.SaveChangesAsync ()) {
+                    return Ok ();
                 }
 
-            }
-            catch(Exception e)
-            {
-                Console.Write(e.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro durante a exclusão do evento.");
+            } catch (Exception ex) {
+                Console.Write (ex.ToString ());
+                return StatusCode (StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante a exclusão do evento. {ex.Message}");
             }
 
-            return BadRequest();
-        }                     
-    }                            
- 
+            return BadRequest ();
+        }
+    }
+
 }
