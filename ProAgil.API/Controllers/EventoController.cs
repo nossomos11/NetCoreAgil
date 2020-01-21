@@ -70,7 +70,7 @@ namespace ProAgil.API.Controllers {
                 this.Repository.Add (evento);
 
                 if (await this.Repository.SaveChangesAsync ()) {
-                    return Created ($"/api/evento/{evento.ID}", evento);
+                    return Created ($"/api/evento/{evento.ID}", this.Mapper.Map<EventoDTO>(evento));
                 }
 
             } catch (Exception ex) {
@@ -83,18 +83,18 @@ namespace ProAgil.API.Controllers {
 
         // GET api/values
         [HttpPut ("{eventoID}")]
-        public async Task<ActionResult> Put (int eventoID, Evento evento) {
+        public async Task<ActionResult> Put (int eventoID, EventoDTO eventoDTO) {
             try {
 
-                var oldEvento = this.Repository.Get (false, eventoID);
-                if (oldEvento.Result == null) { return NotFound (); }
+                var evento = this.Repository.Get (false, eventoID).Result;
+                if (evento == null) { return NotFound (); }
 
-                evento.ID = eventoID;
+                this.Mapper.Map(eventoDTO, evento);
 
                 this.Repository.Update (evento);
 
                 if (await this.Repository.SaveChangesAsync ()) {
-                    return Created ($"/api/evento/{evento.ID}", evento);
+                    return Created ($"/api/evento/{evento.ID}", this.Mapper.Map<EventoDTO>(evento));
                 }
 
             } catch (Exception ex) {
