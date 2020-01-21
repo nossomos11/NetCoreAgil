@@ -16,6 +16,8 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using ProAgil.Repository;
+using AutoMapper;
+using ProAgil.API.Helpers;
 
 namespace ProAgil.API
 {
@@ -35,6 +37,7 @@ namespace ProAgil.API
             services.AddScoped<ProAgilEventoRepository, ProAgilEventoRepository>();
             services.AddScoped<ProAgilPalestranteRepository, ProAgilPalestranteRepository>();
             services.AddCors();
+            services.AddAutoMapper(typeof(Startup));
             //services.AddDirectoryBrowser();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());
 

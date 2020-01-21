@@ -39,7 +39,7 @@ namespace ProAgil.Repository
                     query = query.Where( e => e.Tema.ToLower().Contains(tema.ToLower()));
                 }
 
-                query = query.OrderByDescending(e => e.DataEvento);
+                query = query.OrderByDescending(e => e.ID);
 
                 return await query.ToArrayAsync();
         }

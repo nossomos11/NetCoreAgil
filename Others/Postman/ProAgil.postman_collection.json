@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "585fdf3c-2eef-4792-91a4-a4ebb55a400b",
+		"name": "ProAgil",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/api/evento/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/evento/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"evento",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/api/evento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"Local\": \"São Paulo\",\r\n        \"DataEvento\": \"2020-02-17T15:00:00\",\r\n        \"Tema\": \"Angular\",\r\n        \"QtdPessoas\": 350,\r\n        \"ImagemURL\": \"SquareInfo.png\",\r\n        \"Telefone\": \"1125256666\",\r\n        \"Email\": \"contato@angular.com\",\r\n        \"Lotes\": [],\r\n        \"RedeSociais\": [{\r\n        \t\"Nome\" : \"Twitter\",\r\n        \t\"URL\": \"http://twitter.com/angular\"\r\n        },{\r\n        \t\"Nome\" : \"Facebook\",\r\n        \t\"URL\": \"http://facebook.com/angular\"\r\n        \t\r\n        }],\r\n        \"PalestrantesEventos\": []\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/evento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"evento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/api/evento/2",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"ID\": 2,\r\n        \"Local\": \"São Paulo\",\r\n        \"DataEvento\": \"2020-02-17T15:00:00\",\r\n        \"Tema\": \"Angular\",\r\n        \"QtdPessoas\": 350,\r\n        \"ImagemURL\": \"infoSquare.png\",\r\n        \"Telefone\": \"1125256666\",\r\n        \"Email\": \"contato@angular.com\",\r\n        \"Lotes\": [],\r\n        \"RedeSociais\": [],\r\n        \"PalestrantesEventos\": []\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/evento/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"evento",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/api/palestrante/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Nome\": \"Maria Joaquina\",\n\t\"Email\": \"maria.j@node.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/palestrante/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"palestrante",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/api/palestrante/getByNome/seeder",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/palestrante/getByNome/seeder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"palestrante",
+						"getByNome",
+						"seeder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/api/palestrante/2",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ID\": 2,\r\n    \"Nome\": \"Maria Joaquina\",\r\n    \"Miniurriculo\": null,\r\n    \"ImagemURL\": null,\r\n    \"Telefone\": \"2133339998\",\r\n    \"Email\": \"maria.j@node.com\",\r\n    \"RedeSociais\": [],\r\n    \"PalestrantesEventos\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/palestrante/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"palestrante",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
