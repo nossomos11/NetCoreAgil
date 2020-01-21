@@ -17,7 +17,6 @@ export class EventosComponent implements OnInit {
   eventos: Evento[];
   imagemLargura: number = 20;
   mostrarImagem: boolean = true;
-  modalRef: BsModalRef;
   registerForm: FormGroup;
   mostrarStatusFormBuilder: boolean = false;
   _filtroLista: string = '';
@@ -45,13 +44,12 @@ export class EventosComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>){
-    this.modalRef = this.modalService.show(template);
+    template.show();
   }
  
   getEventos(){
     this.eventoService.getEventos().subscribe(
       (retornoEventos: Evento[]) => {
-        debugger
         this.eventos = retornoEventos;
         this.eventosFiltrados = this.eventos;
         console.log(retornoEventos);
@@ -66,7 +64,6 @@ export class EventosComponent implements OnInit {
   }
 
   filtrarLista(filtrarPor: string): Evento[] {
-    debugger;
     filtrarPor = filtrarPor != null ? filtrarPor.toLowerCase() : '';
     console.log(filtrarPor);
     return this.eventos.filter(
