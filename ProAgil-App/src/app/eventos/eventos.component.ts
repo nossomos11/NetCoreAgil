@@ -15,10 +15,12 @@ defineLocale('pt-br', ptBrLocale);
 export class EventosComponent implements OnInit {
   eventosFiltrados: Evento[];
   eventos: Evento[];
+  eventoSelecionado: Evento;
   imagemLargura: number = 20;
   mostrarImagem: boolean = true;
   registerForm: FormGroup;
   mostrarStatusFormBuilder: boolean = false;
+  mensagemDeletarEvento: string = '';
   _filtroLista: string = '';
 
   constructor(
@@ -43,7 +45,7 @@ export class EventosComponent implements OnInit {
     this.validation();
   }
 
-  openModal(template: TemplateRef<any>){
+  openModal(template: any){
     template.show();
   }
  
@@ -59,6 +61,18 @@ export class EventosComponent implements OnInit {
     );
   }
 
+  novoEvento(template: any){
+    this.eventoSelecionado = null;
+    this.registerForm.reset();
+    this.openModal(template);
+  }
+
+  editarEvento(evento: Evento, template: any){
+    this.eventoSelecionado = evento;
+    this.registerForm.patchValue(this.eventoSelecionado);
+    this.openModal(template);
+  }
+
   exibirImagem(){
     this.mostrarImagem = ! this.mostrarImagem;
   }
@@ -71,9 +85,53 @@ export class EventosComponent implements OnInit {
     );
   }
 
-  salvarAlteracao(){
-
+  salvarAlteracao(template: any){
+    if(this.registerForm.valid){
+      if(this.eventoSelecionado == null){
+        this.eventoSelecionado = Object.assign({}, this.registerForm.value);
+        console.log(this.eventoSelecionado);
+        this.eventoService.postEvento(this.eventoSelecionado).subscribe(
+          (eventoCriado: Evento) => {
+            console.log(eventoCriado);
+            template.hide();
+            this.getEventos();
+          }, error => {
+            console.log(error);
+          }
+        );
+      }else{
+        this.eventoSelecionado = Object.assign({ID: this.eventoSelecionado.ID}, this.registerForm.value);
+        this.eventoService.putEvento(this.eventoSelecionado).subscribe(
+          (eventoAtualizado: Evento) => {
+            console.log(eventoAtualizado);
+            template.hide();
+            this.getEventos();
+          }, error =>{
+            console.log(error);
+          }
+        );
+      }
+    }
   }
+
+ 
+  excluirEvento(evento: Evento, template: any) {
+    this.eventoSelecionado = evento;
+    this.mensagemDeletarEvento = `Tem certeza que deseja excluir o Evento: ${this.eventoSelecionado.Tema}, Código: ${this.eventoSelecionado.ID}`;
+    this.openModal(template);
+  }
+ 
+  confirmExcluirEvento(template: any) {
+    this.eventoService.deleteEvento(this.eventoSelecionado.ID).subscribe(
+      () => {
+          template.hide();
+          this.getEventos();
+        }, error => {
+          console.log(error);
+        }
+    );
+  }
+
 
   validation(){
     this.registerForm = this.formBuilder.group({
