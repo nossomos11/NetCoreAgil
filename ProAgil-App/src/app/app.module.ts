@@ -28,7 +28,8 @@ import { DateTimeFormatPipePipe } from './helps/DateTimeFormatPipe.pipe';
       FormsModule,
       BsDropdownModule.forRoot(),
       TooltipModule.forRoot(),
-      ModalModule.forRoot()
+      ModalModule.forRoot(),
+      ReactiveFormsModule
    ],
    providers: [
      // EventoService

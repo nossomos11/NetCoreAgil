@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventoService } from '../services/evento.service';
 import { Evento } from '../models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-eventos',
@@ -16,6 +17,7 @@ export class EventosComponent implements OnInit {
   imagemLargura: number = 20;
   mostrarImagem: boolean = true;
   modalRef: BsModalRef;
+  registerForm: FormGroup;
 
   _filtroLista: string = '';
 
@@ -32,14 +34,14 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados = this.filtroLista.length > 0 ? this.filtrarLista(this._filtroLista) : this.eventos;
   }
   
-  openModal(template: TemplateRef<any>){
-    this.modalRef = this.modalService.show(template);
-  }
- 
   ngOnInit() {
     this.getEventos();
   }
 
+  openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template);
+  }
+ 
   getEventos(){
     this.eventoService.getEventos().subscribe(
       (retornoEventos: Evento[]) => {
@@ -62,6 +64,16 @@ export class EventosComponent implements OnInit {
     return this.eventos.filter(
       evento => evento.Tema.toLowerCase().indexOf(filtrarPor) !== -1
     );
+  }
+
+  salvarAlteracao(){
+
+  }
+
+  validation(){
+    this.registerForm = new FormGroup({
+      Tema: new FormControl('', [Validators.required, Validators.min(10), Validators.max(100)])
+    });
   }
 
 }
