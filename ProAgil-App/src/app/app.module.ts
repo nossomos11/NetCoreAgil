@@ -23,10 +23,12 @@ import { DateTimeFormatPipePipe } from './helps/DateTimeFormatPipe.pipe';
    ],
    imports: [
       BrowserModule,
+      BrowserAnimationsModule,
       FormsModule,
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
+      BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       ReactiveFormsModule
