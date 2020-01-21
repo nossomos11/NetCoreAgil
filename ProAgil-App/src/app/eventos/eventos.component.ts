@@ -36,6 +36,7 @@ export class EventosComponent implements OnInit {
   
   ngOnInit() {
     this.getEventos();
+    this.validation();
   }
 
   openModal(template: TemplateRef<any>){
@@ -45,6 +46,7 @@ export class EventosComponent implements OnInit {
   getEventos(){
     this.eventoService.getEventos().subscribe(
       (retornoEventos: Evento[]) => {
+        debugger
         this.eventos = retornoEventos;
         this.eventosFiltrados = this.eventos;
         console.log(retornoEventos);
@@ -59,7 +61,8 @@ export class EventosComponent implements OnInit {
   }
 
   filtrarLista(filtrarPor: string): Evento[] {
-    filtrarPor = filtrarPor.toLowerCase();
+    debugger;
+    filtrarPor = filtrarPor != null ? filtrarPor.toLowerCase() : '';
     console.log(filtrarPor);
     return this.eventos.filter(
       evento => evento.Tema.toLowerCase().indexOf(filtrarPor) !== -1
@@ -72,7 +75,13 @@ export class EventosComponent implements OnInit {
 
   validation(){
     this.registerForm = new FormGroup({
-      Tema: new FormControl('', [Validators.required, Validators.min(10), Validators.max(100)])
+      Tema: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
+      Local: new FormControl('', [Validators.required]),
+      DataEvento: new FormControl('', [Validators.required]),
+      QtdPessoas: new FormControl('', [Validators.required, Validators.max(1000)]),
+      ImagemURL: new FormControl('', [Validators.required]),
+      Telefone: new FormControl('', [Validators.required, Validators.minLength(14), Validators.maxLength(15)]),
+      Email: new FormControl('', [Validators.required, Validators.email])
     });
   }
 
