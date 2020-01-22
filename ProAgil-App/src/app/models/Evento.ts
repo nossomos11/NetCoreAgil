@@ -2,7 +2,10 @@ import { Lote } from "./Lote";
 import { RedeSocial } from "./RedeSocial";
 import { Palestrante } from "./Palestrante";
 
-export interface Evento {
+export class Evento {
+
+    constructor(){}
+
     ID: number; 
     Local: string; 
     DataEvento: Date; 

@@ -1,8 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventoService } from '../services/evento.service';
 import { Evento } from '../models/Evento';
-import { BsModalRef, BsModalService, BsLocaleService, ptBrLocale, defineLocale } from 'ngx-bootstrap';
+import { BsModalService, BsLocaleService, ptBrLocale, defineLocale } from 'ngx-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Constants } from '../util/Constants';
 defineLocale('pt-br', ptBrLocale);
 
 @Component({
@@ -21,6 +22,7 @@ export class EventosComponent implements OnInit {
   registerForm: FormGroup;
   mostrarStatusFormBuilder: boolean = false;
   mensagemDeletarEvento: string = '';
+  dateFormat: string = Constants.DATE_FMT_DATEPICKER;
   _filtroLista: string = '';
 
   constructor(

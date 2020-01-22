@@ -1,4 +1,6 @@
-export interface RedeSocial {
+export class RedeSocial {
+    constructor(){}
+    
     ID: number;
     Nome: string;
     URL: string;

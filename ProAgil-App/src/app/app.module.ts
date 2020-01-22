@@ -12,14 +12,14 @@ import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { NavComponent } from "./nav/nav.component";
 
-import { DateTimeFormatPipePipe } from './helps/DateTimeFormatPipe.pipe';
+import { DateTimeFormatPipe } from './helps/DateTimeFormatPipe.pipe';
 
 @NgModule({
    declarations: [
       AppComponent,
       EventosComponent,
       NavComponent,
-      DateTimeFormatPipePipe
+      DateTimeFormatPipe
    ],
    imports: [
       BrowserModule,
