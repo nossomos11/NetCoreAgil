@@ -7,8 +7,8 @@ namespace ProAgil.API.Dtos
         public int ID { get; set; }
         public string Nome { get; set; }
         public Decimal Preco { get; set; }
-        public string DataInicio { get; set; }
-        public string DataFim { get; set; }
+        public DateTime? DataInicio { get; set; }
+        public DateTime? DataFim { get; set; }
         public int Quantidade { get; set; }
     }
 }
