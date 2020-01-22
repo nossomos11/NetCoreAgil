@@ -66,8 +66,8 @@ namespace ProAgil.API
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "img")),
-                RequestPath = "/img"
+                    Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Images")),
+                RequestPath = "/resources/images"
             });
 
             /*

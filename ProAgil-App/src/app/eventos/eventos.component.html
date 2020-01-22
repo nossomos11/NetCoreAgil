@@ -32,7 +32,7 @@
   <tbody *ngIf="eventosFiltrados && eventosFiltrados.length > 0" >
     <tr *ngFor="let item of eventosFiltrados">
       <td>{{item.ID}}</td>
-      <td><img *ngIf="mostrarImagem" src="http://localhost:5000/img/{{item.ImagemURL}}" [style.width.px]="imagemLargura" class="ml-lg-3" /></td>
+      <td><img *ngIf="mostrarImagem" src="http://localhost:5000/resources/images/{{item.ImagemURL}}" [style.width.px]="imagemLargura" class="ml-lg-3" /></td>
       <td>{{item.Tema}}</td>
       <td>{{item.Local}}</td>
       <td>{{item.DataEvento | DateTimeFormatPipe}}</td>
@@ -103,8 +103,7 @@
               <label>Data e Hora</label>
               <input type="text" class="form-control"
               bsDatepicker 
-              value="{{DataEvento | DateTimeFormatPipe}}"
-              [(ngModel)]="DataEvento"
+              [(ngModel)]="DataEvento" value="{{DataEvento | DateTimeFormatPipe}}"
               [bsConfig]="{ dateInputFormat: dateFormat, containerClass: 'theme-red'}"
               [ngClass]="{'is-invalid': registerForm.get('DataEvento').errors && registerForm.get('DataEvento').touched}" 
               formControlName="DataEvento" placeholder="Data e Hora">
@@ -120,17 +119,24 @@
               [ngClass]="{'is-invalid': registerForm.get('QtdPessoas').errors && registerForm.get('QtdPessoas').touched}"
               formControlName="QtdPessoas" placeholder="Quantidade de Pessoas">
               <div *ngIf="registerForm.get('QtdPessoas').hasError('required') && registerForm.get('QtdPessoas').touched" class="div invalid-feedback">
-                A Qtd de Pessoas é de preenchimento obrigatório
+                A Qtd de Pessoas é  obrigatório
               </div>
               <div *ngIf="registerForm.get('QtdPessoas').hasError('max') && registerForm.get('QtdPessoas').touched" class="div invalid-feedback">
-                A Qtd de Pessoas máxima de pessoas é 1000
+                A Qtd de Pessoas máxima é 1000
               </div>
             </div>
             <div class="form-group col-md-8">
-              <label>Imagem URL</label>
-              <input type="text" class="form-control" 
-              [ngClass]="{'is-invalid': registerForm.get('ImagemURL').errors && registerForm.get('ImagemURL').touched}"
-              formControlName="ImagemURL" placeholder="URL da Imagem">
+              <label>Imagem</label>
+              <table>
+                <tr>
+                  <td>
+                    <button class="btn btn-success form-control" (click)="fileupload.click()">Enviar Imagem</button>
+                    <input type="file" #fileupload class="form-control" (change)="onFileChange($event)"
+                    [ngClass]="{'is-invalid': registerForm.get('ImagemURL').errors && registerForm.get('ImagemURL').touched}"
+                    formControlName="ImagemURL" placeholder="URL da Imagem" style="display: none;" >
+                  </td>
+                </tr>
+              </table>
               <div *ngIf="registerForm.get('ImagemURL').hasError('required') && registerForm.get('ImagemURL').touched" class="div invalid-feedback">
                 A Imagem URL Tema é de preenchimento obrigatório
               </div>

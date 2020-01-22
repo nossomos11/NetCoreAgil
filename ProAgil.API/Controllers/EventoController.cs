@@ -128,6 +128,33 @@ namespace ProAgil.API.Controllers {
 
             return BadRequest ();
         }
+
+
+        [HttpPost("upload")]
+        public async Task<ActionResult> Upload () {
+            try {
+
+                var file = Request.Form.Files[0];
+                var pathImage = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Images");
+
+                if(file.Length > 0){
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                    var fileNamePath = Path.Combine(pathImage, fileName).Replace("\"", "").Replace(" ", "");
+
+                    using(var stream = new FileStream(fileNamePath, FileMode.Create)){
+                        file.CopyTo(stream);
+                    }
+                    return Ok();
+                }
+
+
+            } catch (Exception ex) {
+                Console.Write(ex.ToString());
+                return StatusCode (StatusCodes.Status500InternalServerError, $"Ocorreu um erro durante o upload da imagem do evento. {ex.Message}");
+            }
+
+            return BadRequest ();
+        }         
        
     }
 
