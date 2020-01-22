@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Evento } from 'app/models/Evento';
+import { environment } from "../../environments/environment";
 
 @Injectable()
 
@@ -9,7 +10,7 @@ export class EventoService {
 
     constructor( private http: HttpClient) { }
 
-    baseURL: string = "http://localhost:5000/api/evento"; 
+    baseURL: string = `${environment.baseApiURL}/api/evento`;
 
     getEventos() : Observable<Evento[]>{
         return this.http.get<Evento[]>(this.baseURL);
