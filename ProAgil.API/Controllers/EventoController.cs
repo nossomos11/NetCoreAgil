@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -126,6 +128,7 @@ namespace ProAgil.API.Controllers {
 
             return BadRequest ();
         }
+       
     }
 
 }

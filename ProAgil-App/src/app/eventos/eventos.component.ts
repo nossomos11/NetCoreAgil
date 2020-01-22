@@ -25,6 +25,7 @@ export class EventosComponent implements OnInit {
   mostrarStatusFormBuilder: boolean = false;
   mensagemDeletarEvento: string = '';
   dateFormat: string = Constants.DATE_FMT_DATEPICKER;
+  tituloPagina: string = '';
   _filtroLista: string = '';
 
   constructor(
@@ -35,6 +36,7 @@ export class EventosComponent implements OnInit {
     private toastrService: ToastrService ) 
     { 
       this.localeService.use('pt-br');
+      this.tituloPagina = 'Eventos';
     }
 
   public get filtroLista() : string {
