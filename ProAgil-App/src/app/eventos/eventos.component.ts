@@ -26,8 +26,12 @@ export class EventosComponent implements OnInit {
   mensagemDeletarEvento: string = '';
   dateFormat: string = Constants.DATE_FMT_DATEPICKER;
   tituloPagina: string = '';
+  file: File;
+  fileNameToUpdate: string;
+  dataAtualizacaoTela: string;
+  
   _filtroLista: string = '';
-
+  
   constructor(
     private eventoService: EventoService,
     private modalService: BsModalService,
@@ -57,6 +61,8 @@ export class EventosComponent implements OnInit {
   }
  
   getEventos(){
+    this.dataAtualizacaoTela = new Date().getMilliseconds().toString();
+    
     this.eventoService.getEventos().subscribe(
       (retornoEventos: Evento[]) => {
         this.eventos = retornoEventos;
@@ -72,11 +78,14 @@ export class EventosComponent implements OnInit {
   novoEvento(template: any){
     this.eventoSelecionado = null;
     this.registerForm.reset();
+    this.fileNameToUpdate = '';
     this.openModal(template);
   }
 
   editarEvento(evento: Evento, template: any){
-    this.eventoSelecionado = evento;
+    this.eventoSelecionado = Object.assign({}, evento);
+    this.fileNameToUpdate = evento.ImagemURL.toString();
+    this.eventoSelecionado.ImagemURL = '';
     this.registerForm.patchValue(this.eventoSelecionado);
     this.openModal(template);
   }
@@ -93,11 +102,27 @@ export class EventosComponent implements OnInit {
     );
   }
 
+  uploadImagem() {
+    if(this.eventoSelecionado.ImagemURL && this.eventoSelecionado.ImagemURL.length > 0)
+    {
+    const nomeArquivo = this.eventoSelecionado.ImagemURL.split('\\', 3);
+    this.eventoSelecionado.ImagemURL = nomeArquivo[2];
+
+    this.eventoService.postUpload(this.file, nomeArquivo[2])
+      .subscribe(
+        () => {
+          this.getEventos();
+        }
+      );
+    }
+  }
+
   salvarAlteracao(template: any){
     if(this.registerForm.valid){
       if(this.eventoSelecionado == null){
         this.eventoSelecionado = Object.assign({}, this.registerForm.value);
         console.log(this.eventoSelecionado);
+        this.uploadImagem();
         this.eventoService.postEvento(this.eventoSelecionado).subscribe(
           (eventoCriado: Evento) => {
             console.log(eventoCriado);
@@ -111,6 +136,7 @@ export class EventosComponent implements OnInit {
         );
       }else{
         this.eventoSelecionado = Object.assign({ID: this.eventoSelecionado.ID}, this.registerForm.value);
+        this.uploadImagem();
         this.eventoService.putEvento(this.eventoSelecionado).subscribe(
           (eventoAtualizado: Evento) => {
             console.log(eventoAtualizado);
@@ -123,6 +149,15 @@ export class EventosComponent implements OnInit {
           }
         );
       }
+    }
+  }
+
+  onFileChange(event){
+    const reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      this.file = event.target.files;
+      console.log(this.file);
     }
   }
 
