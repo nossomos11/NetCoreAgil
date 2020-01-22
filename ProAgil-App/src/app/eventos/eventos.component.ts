@@ -1,9 +1,11 @@
+import { Constants } from '../util/Constants';
 import { Component, OnInit } from '@angular/core';
 import { EventoService } from '../services/evento.service';
 import { Evento } from '../models/Evento';
 import { BsModalService, BsLocaleService, ptBrLocale, defineLocale } from 'ngx-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Constants } from '../util/Constants';
+import { ToastrService } from 'ngx-toastr';
+
 defineLocale('pt-br', ptBrLocale);
 
 @Component({
@@ -29,7 +31,8 @@ export class EventosComponent implements OnInit {
     private eventoService: EventoService,
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
-    private localeService: BsLocaleService ) 
+    private localeService: BsLocaleService,
+    private toastrService: ToastrService ) 
     { 
       this.localeService.use('pt-br');
     }
@@ -59,6 +62,7 @@ export class EventosComponent implements OnInit {
         console.log(retornoEventos);
       }, error => {
         console.log(error);
+        this.toastrService.error(`Ocorreu um erro ao tentar carregar os eventos. Erro: ${error}`);
       }
     );
   }
@@ -97,8 +101,10 @@ export class EventosComponent implements OnInit {
             console.log(eventoCriado);
             template.hide();
             this.getEventos();
+            this.toastrService.success(`Evento \"${eventoCriado.ID}\" criado com sucesso`);
           }, error => {
             console.log(error);
+            this.toastrService.error(`Ocorreu um erro na criação do Evento. Erro: ${error}`);
           }
         );
       }else{
@@ -108,8 +114,10 @@ export class EventosComponent implements OnInit {
             console.log(eventoAtualizado);
             template.hide();
             this.getEventos();
+            this.toastrService.success(`Evento \"${this.eventoSelecionado.ID}\" atualizado com sucesso`);
           }, error =>{
             console.log(error);
+            this.toastrService.error(`Ocorreu um erro na atualização do Evento. Erro: ${error}`);
           }
         );
       }
@@ -128,8 +136,10 @@ export class EventosComponent implements OnInit {
       () => {
           template.hide();
           this.getEventos();
+          this.toastrService.success(`Evento \"${this.eventoSelecionado.ID}\" excluído com sucesso`);
         }, error => {
           console.log(error);
+          this.toastrService.error(`Ocorreu um erro na exclusão do Evento. Erro: ${error}`);
         }
     );
   }
