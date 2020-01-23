@@ -18,6 +18,10 @@ using System.IO;
 using ProAgil.Repository;
 using AutoMapper;
 using ProAgil.API.Helpers;
+using Microsoft.AspNetCore.Identity;
+using ProAgil.Domain.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace ProAgil.API
 {
@@ -34,12 +38,41 @@ namespace ProAgil.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProAgilDataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            IdentityBuilder builder = services.AddIdentityCore<User>(options => {
+                options.Password.RequireDigit = false; 
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+                
+            });
+
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+            builder.AddEntityFrameworkStores<ProAgilDataContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
+            
+            services.AddMvc( options => {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(x =>  
+                { 
+                    x.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                }
+                
+            );
+
             services.AddScoped<ProAgilEventoRepository, ProAgilEventoRepository>();
             services.AddScoped<ProAgilPalestranteRepository, ProAgilPalestranteRepository>();
             services.AddCors();
             services.AddAutoMapper(typeof(Startup));
             //services.AddDirectoryBrowser();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
         }
 
