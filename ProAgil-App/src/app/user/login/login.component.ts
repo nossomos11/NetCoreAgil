@@ -34,15 +34,24 @@ export class LoginComponent implements OnInit {
           this.toastrService.success('Usuário Logado com Sucesso');
         },
         error => {
-          const erro = error.statusText == "Unknown Error" ? "Serviço Indisponível" : error.statusText;
-          this.toastrService.error(`Erro ao tentar Logar! Erro: ${erro}`);
+          switch (error.status) {
+            case 0:
+              this.toastrService.error(`Erro ao tentar Logar! Serviço Indisponível!`);
+              break;
+            case 401:
+              this.toastrService.warning(`Usuário ou senha inválido`);
+              break;
+            default:
+              this.toastrService.error(`Erro ao tentar Logar! Erro: (${error.status}) ${error.statusText}`);
+              break;
+          }
         }
       );
 
   }
 
   registrar(){
-    this.router.navigate(['/user/registration']);
+    this.router.navigate(['/user/register']);
   }
 
 }
