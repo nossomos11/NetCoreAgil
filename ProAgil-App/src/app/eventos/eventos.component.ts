@@ -54,6 +54,7 @@ export class EventosComponent implements OnInit {
   ngOnInit() {
     this.getEventos();
     this.validation();
+    this.eventoSelecionado = new Evento();
   }
 
   openModal(template: any){
@@ -76,7 +77,7 @@ export class EventosComponent implements OnInit {
   }
 
   novoEvento(template: any){
-    this.eventoSelecionado = null;
+    this.eventoSelecionado = new Evento();
     this.registerForm.reset();
     this.fileNameToUpdate = '';
     this.openModal(template);
@@ -119,7 +120,7 @@ export class EventosComponent implements OnInit {
 
   salvarAlteracao(template: any){
     if(this.registerForm.valid){
-      if(this.eventoSelecionado == null){
+      if(this.eventoSelecionado == null || this.eventoSelecionado.ID == 0){
         this.eventoSelecionado = Object.assign({}, this.registerForm.value);
         console.log(this.eventoSelecionado);
         this.uploadImagem();

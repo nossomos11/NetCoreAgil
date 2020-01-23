@@ -67,7 +67,7 @@ namespace ProAgil.API.Controllers
             }
 
         }
-        
+
 
         [AllowAnonymous]
         [HttpPost("Login")]
@@ -83,7 +83,7 @@ namespace ProAgil.API.Controllers
                 {
                     user = await UserManager.Users.FirstOrDefaultAsync(u => u.NormalizedUserName == loginDTO.UserName.ToUpper());
 
-                    var userDTO = Mapper.Map<LoginDTO>(user);
+                    var userDTO = Mapper.Map<UserDTO>(user);
 
                     return Ok(new {
                         token = GenerateJWTToken(user).Result,
