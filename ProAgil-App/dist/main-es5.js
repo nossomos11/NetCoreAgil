@@ -55,7 +55,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<app-titulo [titulo]=\"tituloPagina\"></app-titulo>\n\n<p>\n  contatos works!\n</p>\n";
+    __webpack_exports__["default"] = "<app-titulo [titulo]=\"tituloPagina\"></app-titulo>\r\n\r\n<p>\r\n  contatos works!\r\n</p>\r\n";
     /***/
   },
 
@@ -75,7 +75,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<app-titulo [titulo]=\"tituloPagina\"></app-titulo>\n\n<p>\n  dashboard works!\n</p>\n";
+    __webpack_exports__["default"] = "<app-titulo [titulo]=\"tituloPagina\"></app-titulo>\r\n\r\n<p>\r\n  dashboard works!\r\n</p>\r\n";
     /***/
   },
 
@@ -135,7 +135,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<app-titulo [titulo]=\"tituloPagina\"></app-titulo>\n\n<p>\n  palestrantes works!\n</p>\n";
+    __webpack_exports__["default"] = "<app-titulo [titulo]=\"tituloPagina\"></app-titulo>\r\n\r\n<p>\r\n  palestrantes works!\r\n</p>\r\n";
     /***/
   },
 
@@ -155,7 +155,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<h2 class=\"mt-2 mb-3\">{{ titulo }}</h2>\n\n";
+    __webpack_exports__["default"] = "<h2 class=\"mt-2 mb-3\">{{ titulo }}</h2>\r\n\r\n";
     /***/
   },
 
