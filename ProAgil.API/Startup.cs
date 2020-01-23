@@ -105,7 +105,7 @@ namespace ProAgil.API
                 app.UseHsts();
             }
 
-
+            app.UseAuthentication();
             //app.UseHttpsRedirection();
             // Enable Cors
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
