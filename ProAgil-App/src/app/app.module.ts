@@ -16,19 +16,24 @@ import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { ContatosComponent } from './contatos/contatos.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
 
 import { DateTimeFormatPipe } from './helps/DateTimeFormatPipe.pipe';
-
 @NgModule({
    declarations: [
       AppComponent,
       EventosComponent,
       NavComponent,
-      DateTimeFormatPipe,
       PalestrantesComponent,
       DashboardComponent,
       ContatosComponent,
-      TituloComponent
+      TituloComponent,
+      UserComponent,
+      LoginComponent,
+      RegistrationComponent,
+      DateTimeFormatPipe
    ],
    imports: [
       BrowserModule,

@@ -1,9 +1,8 @@
 <app-titulo [titulo]="tituloPagina"></app-titulo>
 
-<div class="div d-flex">
-
+<div class="div d-flex mb-2">
   <div class="form-inline mr-auto">
-    <h2><label class="mr-2">Filtrar:</label></h2>
+    <h4><label class="mr-2">Filtrar:</label></h4>
     <div class="form-group-mb-2">
       <input type="text" class="form-control-mr-2" placeholder="Buscar" [(ngModel)]="filtroLista" />
     </div>
@@ -53,7 +52,7 @@
   <tfoot *ngIf="! eventosFiltrados || eventosFiltrados.length == 0" class="text-center">
     <tr>
       <td colspan="7">
-        <h3>Nenhum evento encontrado!</h3>
+        <h3 class="mt-5 mb-5">Nenhum evento encontrado!</h3>
       </td>
     </tr>
   </tfoot>
@@ -103,7 +102,7 @@
               <label>Data e Hora</label>
               <input type="text" class="form-control"
               bsDatepicker 
-              [(ngModel)]="DataEvento" value="{{DataEvento | DateTimeFormatPipe}}"
+              [(ngModel)]="eventoSelecionado.DataEvento" value="{{eventoSelecionado.DataEvento | DateTimeFormatPipe}}"
               [bsConfig]="{ dateInputFormat: dateFormat, containerClass: 'theme-red'}"
               [ngClass]="{'is-invalid': registerForm.get('DataEvento').errors && registerForm.get('DataEvento').touched}" 
               formControlName="DataEvento" placeholder="Data e Hora">
