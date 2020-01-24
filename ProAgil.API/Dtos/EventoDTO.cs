@@ -29,3 +29,4 @@ namespace ProAgil.API.Dtos
         public List<PalestranteDTO> Palestrantes { get; set; }   
     }
 }
+

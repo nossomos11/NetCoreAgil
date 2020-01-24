@@ -16,7 +16,9 @@ export class NavComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
-
+    if(! this.loggedIn() && this.router.url !== '/user/login' && this.router.url !== '/user/register'){
+      this.entrar();
+    }
   }
 
   showMenu() {
