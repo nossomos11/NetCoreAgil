@@ -13,9 +13,8 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="./img/*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="ProAgil.db" CopyToOutputDirectory="Always" />
+    <None Include="./Resources/Images/*" CopyToOutputDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProAgil.Domain\ProAgil.Domain.csproj"/>
