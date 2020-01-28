@@ -122,7 +122,7 @@ export class EventosComponent implements OnInit {
 
   salvarAlteracao(template: any){
     if(this.registerForm.valid){
-      if(this.eventoSelecionado == null || this.eventoSelecionado.ID == 0){
+      if(this.eventoSelecionado == null || this.eventoSelecionado.ID == 0 || this.eventoSelecionado.ID == undefined){
         this.eventoSelecionado = Object.assign({}, this.registerForm.value);
         console.log(this.eventoSelecionado);
         this.uploadImagem();
