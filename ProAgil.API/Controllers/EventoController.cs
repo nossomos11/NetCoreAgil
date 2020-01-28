@@ -13,9 +13,12 @@ using ProAgil.Domain;
 using ProAgil.Repository;
 
 namespace ProAgil.API.Controllers {
+
+
     [Route ("api/[controller]")]
     [ApiController]
     public class EventoController : ControllerBase {
+        public static string PathImage = Path.Combine(Directory.GetCurrentDirectory(), "resources", "images");
         public ProAgilEventoRepository Repository { get; }
         public IMapper Mapper { get; }
 
@@ -135,11 +138,10 @@ namespace ProAgil.API.Controllers {
             try {
 
                 var file = Request.Form.Files[0];
-                var pathImage = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Images");
 
                 if(file.Length > 0){
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
-                    var fileNamePath = Path.Combine(pathImage, fileName).Replace("\"", "").Replace(" ", "");
+                    var fileNamePath = Path.Combine(PathImage, fileName).Replace("\"", "").Replace(" ", "");
 
                     using(var stream = new FileStream(fileNamePath, FileMode.Create)){
                         file.CopyTo(stream);
