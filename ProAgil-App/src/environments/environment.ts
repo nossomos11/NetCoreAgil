@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  baseApiURL: 'http://localhost:4500'
+  baseApiURL: 'http://lebnas.synology.me:4500'
 };
