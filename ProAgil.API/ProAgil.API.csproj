@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ProAgil.db" CopyToOutputDirectory="Always" />
-    <None Include="./Resources/Images/*" CopyToOutputDirectory="Always" />
+    <None Include="./resources/images/*" CopyToOutputDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProAgil.Domain\ProAgil.Domain.csproj"/>

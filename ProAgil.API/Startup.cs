@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ProAgil.API.Controllers;
 
 namespace ProAgil.API
 {
@@ -113,7 +114,7 @@ namespace ProAgil.API
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Images")),
+                    EventoController.PathImage),
                 RequestPath = "/resources/images"
             });
 

@@ -5,6 +5,7 @@ import { Evento } from '../models/Evento';
 import { BsModalService, BsLocaleService, ptBrLocale, defineLocale } from 'ngx-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'environments/environment';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -29,6 +30,7 @@ export class EventosComponent implements OnInit {
   file: File;
   fileNameToUpdate: string;
   dataAtualizacaoTela: string;
+  baseApiURL: string = environment.baseApiURL;
   
   _filtroLista: string = '';
   
