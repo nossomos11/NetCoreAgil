@@ -1,17 +1,17 @@
 <app-titulo [titulo]="tituloPagina"></app-titulo>
 
 <div class="div d-flex mb-2">
-  <div class="form-inline mr-auto">
-    <h4><label class="mr-2">Filtrar:</label></h4>
-    <div class="form-group-mb-2">
-      <input type="text" class="form-control-mr-2" placeholder="Buscar" [(ngModel)]="filtroLista" />
-    </div>
+  <div class="input-group col-10">
+    <span class="input-group-addon mr-2 mt-1"><i class="fa fa-search fa-fw"></i></span>
+    <input type="text" class="form-control col-12" placeholder="Buscar" [(ngModel)]="filtroLista" />
   </div>
-  <div>
-    <button class="btn btn-outline-primary" (click)="novoEvento(template)">
-      <i class="fa fa-plus-circle"></i>
-      Novo Evento
-    </button>
+  <div class="input-group col-2">
+    <div class="input-group-btn">
+      <button class="btn btn-outline-primary" (click)="novoEvento(template)">
+        <i class="fa fa-plus-circle"></i>
+        Novo Cadastro
+      </button>
+    </div>
   </div>
 </div>
 
@@ -20,10 +20,10 @@
     <tr>
       <th>#</th>
       <th><button class="btn btn-light" (click)="exibirImagem()" [style.width.px]="50"><i class="{{mostrarImagem ? 'fa fa-eye-slash' : 'fa fa-eye'}}"></i></button></th>
-      <th>Tema</th>
-      <th>Local</th>
+      <th>Nome</th>
+      <th>Destino</th>
       <th>Data</th>
-      <th>Qtd Pessoas</th>
+      <th>Quantidade</th>
       <th>Lote</th>
       <th>Opções</th>
     </tr>
@@ -64,7 +64,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">{{! this.eventoSelecionado ? "Cadastro de Evento" : "Edição do Evento: " + this.eventoSelecionado.ID + " - " + this.eventoSelecionado.Tema }}</h4>
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">{{! this.eventoSelecionado || this.eventoSelecionado.ID == 0 || this.eventoSelecionado.ID == null ? "Novo Cadastro" : "Edição do Cadastro: " + this.eventoSelecionado.ID + " - " + this.eventoSelecionado.Tema }}</h4>
         <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -73,10 +73,10 @@
         <form [formGroup]="registerForm">
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label>Tema</label>
+              <label>Nome</label>
               <input type="text" class="form-control" 
               [ngClass]="{'is-invalid': registerForm.get('Tema').errors && registerForm.get('Tema').touched}"
-              formControlName="Tema" placeholder="Tema do Evento">
+              formControlName="Tema" placeholder="Descrição ou Nome">
               <div *ngIf="registerForm.get('Tema').hasError('required') && registerForm.get('Tema').touched" class="div invalid-feedback">
                 O Tema é de preenchimento obrigatório
               </div>
@@ -90,10 +90,10 @@
           </div>  
           <div class="form-row">
             <div class="form-group col-md-8">
-              <label>Local</label>
+              <label>Destino</label>
               <input type="text" class="form-control"
               [ngClass]="{'is-invalid': registerForm.get('Local').errors && registerForm.get('Local').touched}" 
-              formControlName="Local" placeholder="Local do Evento">
+              formControlName="Local" placeholder="Destino ou Local">
               <div *ngIf="registerForm.get('Local').hasError('required') && registerForm.get('Local').touched" class="div invalid-feedback">
                 O Local é de preenchimento obrigatório
               </div>
@@ -113,7 +113,7 @@
           </div>  
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label>Qtd Pessoas</label>
+              <label>Quantidade</label>
               <input type="text" class="form-control" 
               [ngClass]="{'is-invalid': registerForm.get('QtdPessoas').errors && registerForm.get('QtdPessoas').touched}"
               formControlName="QtdPessoas" placeholder="Quantidade de Pessoas">
@@ -198,7 +198,7 @@
     <div class="modal-content">
       <div class="modal-header">
       			<h4 class="modal-title pull-left">
-        			Exclusão de Evento
+        			Exclusão de Cadastro
       			</h4>
       			<button type="button" class="close pull-right" (click)="confirmModalDelete.hide()" aria-label="Close">
         			<span aria-hidden="true">&times;</span>

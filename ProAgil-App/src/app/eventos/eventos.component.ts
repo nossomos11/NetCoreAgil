@@ -42,7 +42,7 @@ export class EventosComponent implements OnInit {
     private toastrService: ToastrService ) 
     { 
       this.localeService.use('pt-br');
-      this.tituloPagina = 'Eventos';
+      this.tituloPagina = 'Meu Cadastro';
     }
 
   public get filtroLista() : string {
@@ -131,7 +131,7 @@ export class EventosComponent implements OnInit {
             console.log(eventoCriado);
             template.hide();
             this.getEventos();
-            this.toastrService.success(`Evento \"${eventoCriado.ID}\" criado com sucesso`);
+            this.toastrService.success(`Cadastro \"${eventoCriado.ID}\" criado com sucesso`);
           }, error => {
             console.log(error);
             this.toastrService.error(`Ocorreu um erro na criação do Evento. Erro: ${error}`);
@@ -145,7 +145,7 @@ export class EventosComponent implements OnInit {
             console.log(eventoAtualizado);
             template.hide();
             this.getEventos();
-            this.toastrService.success(`Evento \"${this.eventoSelecionado.ID}\" atualizado com sucesso`);
+            this.toastrService.success(`Cadastro \"${this.eventoSelecionado.ID}\" atualizado com sucesso`);
           }, error =>{
             console.log(error);
             this.toastrService.error(`Ocorreu um erro na atualização do Evento. Erro: ${error}`);
@@ -167,7 +167,7 @@ export class EventosComponent implements OnInit {
  
   excluirEvento(evento: Evento, template: any) {
     this.eventoSelecionado = evento;
-    this.mensagemDeletarEvento = `Tem certeza que deseja excluir o Evento: ${this.eventoSelecionado.Tema}, Código: ${this.eventoSelecionado.ID}`;
+    this.mensagemDeletarEvento = `Tem certeza que deseja excluir o Cadastro: ${this.eventoSelecionado.Tema}, Código: ${this.eventoSelecionado.ID}`;
     this.openModal(template);
   }
  
@@ -176,7 +176,7 @@ export class EventosComponent implements OnInit {
       () => {
           template.hide();
           this.getEventos();
-          this.toastrService.success(`Evento \"${this.eventoSelecionado.ID}\" excluído com sucesso`);
+          this.toastrService.success(`Cadastro \"${this.eventoSelecionado.ID}\" excluído com sucesso`);
         }, error => {
           console.log(error);
           this.toastrService.error(`Ocorreu um erro na exclusão do Evento. Erro: ${error}`);

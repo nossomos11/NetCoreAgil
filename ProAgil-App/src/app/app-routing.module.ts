@@ -10,21 +10,21 @@ import { RegistrationComponent } from './user/registration/registration.componen
 
 const routes: Routes = [
   { path:'user', component: UserComponent,
-    children:[  
+    children:[
       { path:'login', component: LoginComponent },
       { path:'register', component: RegistrationComponent }
 
   ]},
-  { path:'eventos', component: EventosComponent },
+  { path:'cadastro', component: EventosComponent },
   { path:'palestrantes', component: PalestrantesComponent },
   { path:'contatos', component: ContatosComponent },
   { path:'dashboard', component: DashboardComponent },
-  { path:'', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path:'**', redirectTo: 'dashboard', pathMatch: 'full' }
+  { path:'', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path:'**', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

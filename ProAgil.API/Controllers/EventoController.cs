@@ -144,7 +144,7 @@ namespace ProAgil.API.Controllers {
                     var fileNamePath = Path.Combine(PathImage, fileName).Replace("\"", "").Replace(" ", "");
 
                     using(var stream = new FileStream(fileNamePath, FileMode.Create)){
-                        file.CopyTo(stream);
+                        await file.CopyToAsync(stream);
                     }
                     return Ok();
                 }
